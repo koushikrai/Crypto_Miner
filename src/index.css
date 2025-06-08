@@ -1,0 +1,162 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Crypto Mining Game Design System */
+
+@layer base {
+  :root {
+    --background: 215 28% 8%;
+    --foreground: 210 40% 98%;
+
+    --card: 215 28% 12%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 215 28% 12%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 194 100% 52%;
+    --primary-foreground: 215 28% 8%;
+
+    --secondary: 156 100% 50%;
+    --secondary-foreground: 215 28% 8%;
+
+    --muted: 215 28% 15%;
+    --muted-foreground: 217 10% 64%;
+
+    --accent: 45 100% 51%;
+    --accent-foreground: 215 28% 8%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 215 28% 18%;
+    --input: 215 28% 18%;
+    --ring: 194 100% 52%;
+
+    --radius: 0.75rem;
+
+    /* Custom game colors */
+    --neon-blue: 194 100% 52%;
+    --neon-green: 156 100% 50%;
+    --gold: 45 100% 51%;
+    --dark-surface: 215 28% 10%;
+    --mining-glow: 194 100% 52%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-mono;
+    background-image: 
+      radial-gradient(circle at 20% 80%, rgba(0, 212, 255, 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, rgba(0, 255, 136, 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 40% 40%, rgba(255, 215, 0, 0.05) 0%, transparent 50%);
+  }
+}
+
+@layer components {
+  .mining-button {
+    @apply relative overflow-hidden bg-gradient-to-br from-neon-blue/80 to-neon-green/60
+           text-white font-bold py-8 px-12 rounded-2xl transform transition-all duration-150 
+           hover:scale-105 active:scale-95 shadow-lg;
+    box-shadow: 0 0 30px hsl(var(--neon-blue) / 0.4), 0 0 60px hsl(var(--neon-green) / 0.2);
+    border: 2px solid hsl(var(--neon-blue) / 0.6);
+  }
+  
+  .mining-button:hover {
+    @apply from-neon-blue/90 to-neon-green/70;
+    box-shadow: 0 0 40px hsl(var(--neon-blue) / 0.6), 0 0 80px hsl(var(--neon-green) / 0.3);
+  }
+  
+  .mining-button::before {
+    content: '';
+    @apply absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent 
+           translate-x-[-100%] skew-x-12 transition-transform duration-700;
+  }
+  
+  .mining-button:hover::before {
+    @apply translate-x-[200%];
+  }
+
+  .upgrade-card {
+    @apply bg-card border border-border rounded-xl p-4 hover:border-primary/50 
+           transition-all duration-300 hover:shadow-lg hover:shadow-primary/10;
+  }
+
+  .coin-counter {
+    @apply text-4xl font-bold bg-gradient-to-r from-gold via-yellow-400 to-gold 
+           bg-clip-text text-transparent animate-pulse;
+  }
+
+  .stats-card {
+    @apply bg-gradient-to-br from-card to-dark-surface border border-border/50 
+           rounded-xl p-6 backdrop-blur-sm;
+  }
+
+  .neon-glow {
+    box-shadow: 0 0 20px currentColor;
+  }
+
+  .particle-effect {
+    @apply absolute w-2 h-2 bg-gold rounded-full animate-bounce;
+  }
+}
+
+@layer utilities {
+  .text-neon-blue {
+    color: hsl(var(--neon-blue));
+  }
+  
+  .text-neon-green {
+    color: hsl(var(--neon-green));
+  }
+  
+  .text-gold {
+    color: hsl(var(--gold));
+  }
+  
+  .bg-dark-surface {
+    background-color: hsl(var(--dark-surface));
+  }
+
+  .animate-coin-float {
+    animation: coinFloat 2s ease-in-out infinite;
+  }
+
+  .animate-mining-pulse {
+    animation: miningPulse 1.5s ease-in-out infinite;
+  }
+
+  .animate-upgrade-glow {
+    animation: upgradeGlow 2s ease-in-out infinite alternate;
+  }
+}
+
+@keyframes coinFloat {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-10px) rotate(180deg); }
+}
+
+@keyframes miningPulse {
+  0%, 100% { 
+    box-shadow: 0 0 30px hsl(var(--neon-blue) / 0.4), 0 0 60px hsl(var(--neon-green) / 0.2);
+  }
+  50% { 
+    box-shadow: 0 0 50px hsl(var(--neon-blue) / 0.6), 0 0 100px hsl(var(--neon-green) / 0.4);
+  }
+}
+
+@keyframes upgradeGlow {
+  from { 
+    box-shadow: 0 0 5px hsl(var(--neon-green)), 0 0 10px hsl(var(--neon-green));
+  }
+  to { 
+    box-shadow: 0 0 10px hsl(var(--neon-green)), 0 0 20px hsl(var(--neon-green)), 0 0 30px hsl(var(--neon-green));
+  }
+}
